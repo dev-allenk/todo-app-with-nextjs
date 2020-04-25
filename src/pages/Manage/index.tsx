@@ -16,7 +16,7 @@ export default function Manage() {
   return (
     <Layout>
       <TodoInput dispatch={dispatch} />
-      {!loading && <TodoLists todos={data} />}
+      {loading ? <div>loading...</div> : <TodoLists todos={data} />}
     </Layout>
   );
 }
