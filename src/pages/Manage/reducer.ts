@@ -8,15 +8,7 @@ const reducer: Reducer<TodoItem[], Action> = (state, action) => {
     return [...state, ...action.payload];
   }
   if (isAddTodo(action)) {
-    const userId = 1;
-    const id = (Math.random() * 10000) | 0;
-    const newTodo = {
-      userId,
-      id,
-      title: action.payload,
-      completed: false,
-    };
-    const newTodos = [newTodo, ...state];
+    const newTodos = [{ ...action.payload, completed: false }, ...state];
     setLocalStorage("todos", newTodos);
     return newTodos;
   }

@@ -5,6 +5,13 @@ const POST = "POST";
 const PUT = "PUT";
 const DELETE = "DELETE";
 
+const BODY = (value) => ({
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(value),
+});
+
 const request = async (method, URI, options) => {
   return await fetch(`${API_ENDPOINT}${URI}`, { method, ...options });
 };
@@ -12,6 +19,9 @@ const request = async (method, URI, options) => {
 const todoApi = {
   getTodos() {
     return request(GET, "/todos");
+  },
+  addTodo(newTodo) {
+    return request(POST, "/todos", BODY(newTodo));
   },
 };
 

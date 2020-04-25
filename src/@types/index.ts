@@ -12,7 +12,7 @@ export interface GetTodos {
 
 export interface AddTodo {
   type: "addTodo";
-  payload: string;
+  payload: TodoItem;
 }
 
 export type Action = GetTodos | AddTodo;
