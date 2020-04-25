@@ -1,14 +1,8 @@
 import React from "react";
 import S from "./styles";
+import { TodoItem } from "@types";
 
-interface TodoItem {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-}
-
-function TodoLists({ todos }: { todos: TodoItem[] }) {
+function TodoLists({ todos = [] }: { todos: TodoItem[] }) {
   return (
     <S.ListWrapper>
       {todos.map((item) => (
