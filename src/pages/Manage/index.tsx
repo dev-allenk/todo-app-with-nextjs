@@ -1,18 +1,30 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import Layout from "../../components/Layout";
 import TodoInput from "../../components/TodoInput";
 import TodoLists from "../../components/TodoLists";
 import useFetch from "../../hooks/useFetch";
 import api from "../../api";
 import reducer from "./reducer";
+import { getLocalStorage } from "src/utils";
+import { TodoItem } from "@types";
 
 export default function Manage() {
   const [data, dispatch] = useReducer(reducer, []);
-  const { loading } = useFetch({
+
+  const getTodos = (data: TodoItem[]) => {
+    dispatch({ type: "getTodos", payload: data });
+  };
+
+  const { loading, request } = useFetch({
     onRequest: api.getTodos,
-    onSuccess: (data) => dispatch({ type: "getTodo", payload: data }),
-    autoFetch: true,
+    onSuccess: getTodos,
   });
+
+  useEffect(() => {
+    const data = getLocalStorage("todos");
+    data ? getTodos(data) : request();
+  }, []);
+
   return (
     <Layout>
       <TodoInput dispatch={dispatch} />

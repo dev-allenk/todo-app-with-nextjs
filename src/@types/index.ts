@@ -5,8 +5,8 @@ export interface TodoItem {
   completed: boolean;
 }
 
-export interface GetTodo {
-  type: "getTodo";
+export interface GetTodos {
+  type: "getTodos";
   payload: TodoItem[];
 }
 
@@ -15,4 +15,4 @@ export interface AddTodo {
   payload: string;
 }
 
-export type Action = GetTodo | AddTodo;
+export type Action = GetTodos | AddTodo;

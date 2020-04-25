@@ -1,8 +1,10 @@
-import { TodoItem, Action, GetTodo, AddTodo } from "@types";
+import { TodoItem, Action, GetTodos, AddTodo } from "@types";
 import { Reducer } from "react";
+import { setLocalStorage } from "src/utils";
 
 const reducer: Reducer<TodoItem[], Action> = (state, action) => {
-  if (isGetTodo(action)) {
+  if (isGetTodos(action)) {
+    setLocalStorage("todos", action.payload);
     return [...state, ...action.payload];
   }
   if (isAddTodo(action)) {
@@ -14,13 +16,15 @@ const reducer: Reducer<TodoItem[], Action> = (state, action) => {
       title: action.payload,
       completed: false,
     };
-    return [newTodo, ...state];
+    const newTodos = [newTodo, ...state];
+    setLocalStorage("todos", newTodos);
+    return newTodos;
   }
   return state;
 };
 
-function isGetTodo(action: Action): action is GetTodo {
-  return action.type === "getTodo";
+function isGetTodos(action: Action): action is GetTodos {
+  return action.type === "getTodos";
 }
 function isAddTodo(action: Action): action is AddTodo {
   return action.type === "addTodo";
