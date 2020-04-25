@@ -1,17 +1,25 @@
 import React from "react";
+import S from "./styles";
 
 interface TodoItem {
+  userId: number;
   id: number;
   title: string;
+  completed: boolean;
 }
 
 function TodoLists({ todos }: { todos: TodoItem[] }) {
   return (
-    <ul>
+    <S.ListWrapper>
       {todos.map((item) => (
-        <li key={item.id}>{item.title}</li>
+        <>
+          <S.Li key={item.id}>
+            <S.Span>{item.title}</S.Span>
+            <S.CloseButton />
+          </S.Li>
+        </>
       ))}
-    </ul>
+    </S.ListWrapper>
   );
 }
 

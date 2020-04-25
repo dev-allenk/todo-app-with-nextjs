@@ -1,14 +1,14 @@
 import Layout from "../components/Layout";
 import TodoInput from "../components/TodoInput";
 import TodoLists from "../components/TodoLists";
-
-const data = [
-  { id: 1, title: "1" },
-  { id: 2, title: "2" },
-  { id: 3, title: "3" },
-];
+import useFetch from "../hooks/useFetch";
+import api from "../api";
 
 export default function Manage() {
+  const { data } = useFetch({
+    onRequest: api.getTodos,
+    autoFetch: true,
+  });
   return (
     <Layout>
       <TodoInput />
