@@ -30,7 +30,7 @@ export default function Manage() {
   return (
     <Layout>
       <TodoInput dispatch={dispatch} />
-      {loading ? <Loader /> : <TodoLists todos={data} />}
+      {loading ? <Loader /> : <TodoLists todos={data} dispatch={dispatch} />}
     </Layout>
   );
 }

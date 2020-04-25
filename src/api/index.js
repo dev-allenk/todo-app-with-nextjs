@@ -23,6 +23,9 @@ const todoApi = {
   addTodo(newTodo) {
     return request(POST, "/todos", BODY(newTodo));
   },
+  deleteTodo(id) {
+    return request(DELETE, `/todos/${id}`);
+  },
 };
 
 export default { ...todoApi };

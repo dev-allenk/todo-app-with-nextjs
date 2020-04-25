@@ -1,19 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import S from "./styles";
-import { TodoItem } from "@types";
+import { TodoItem, Action } from "@types";
+import useFetch from "src/hooks/useFetch";
+import api from "src/api";
+import Modal from "../Modal";
+import Loader from "../Loader";
 
-function TodoLists({ todos = [] }: { todos: TodoItem[] }) {
+interface TodoListsProps {
+  todos: TodoItem[];
+  dispatch: React.Dispatch<Action>;
+}
+
+function TodoLists({ todos = [], dispatch }: TodoListsProps) {
+  const [todoId, setTodoId] = useState("");
+  const { loading } = useFetch({
+    onRequest: () => api.deleteTodo(todoId),
+    onSuccess: () => deleteTodo(todoId),
+    loadStatus: true,
+    watch: todoId,
+  });
+
+  const deleteTodo = (todoId: string) => {
+    dispatch({ type: "deleteTodo", payload: todoId });
+    setTodoId("");
+  };
+
+  const onClick = ({
+    currentTarget,
+  }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setTodoId(currentTarget.dataset.id!);
+  };
+
   return (
-    <S.ListWrapper>
-      {todos.map((item) => (
-        <>
-          <S.Li key={item.id}>
-            <S.Span>{item.title}</S.Span>
-            <S.CloseButton />
-          </S.Li>
-        </>
-      ))}
-    </S.ListWrapper>
+    <>
+      {loading && (
+        <Modal>
+          <Loader />
+        </Modal>
+      )}
+      <S.ListWrapper>
+        {todos.map((item) => (
+          <>
+            <S.Li key={item.id}>
+              <S.Span>{item.title}</S.Span>
+              <S.CloseButton data-id={item.id} onClick={onClick} />
+            </S.Li>
+          </>
+        ))}
+      </S.ListWrapper>
+    </>
   );
 }
 

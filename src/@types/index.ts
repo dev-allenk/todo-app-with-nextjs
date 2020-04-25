@@ -15,4 +15,9 @@ export interface AddTodo {
   payload: TodoItem;
 }
 
-export type Action = GetTodos | AddTodo;
+export interface DeleteTodo {
+  type: "deleteTodo";
+  payload: string;
+}
+
+export type Action = GetTodos | AddTodo | DeleteTodo;
