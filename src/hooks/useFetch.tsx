@@ -4,7 +4,7 @@ interface FetchParams {
   onRequest(p: any): Promise<Response>;
   onSuccess?(p: any): void;
   onError?: () => void | object;
-  watch?: any[] | string | number | boolean;
+  watch?: any[] | string | number;
   autoFetch?: boolean;
   loadStatus?: boolean;
 }
@@ -18,7 +18,7 @@ const useFetch = ({
   loadStatus,
 }: FetchParams) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const watchingValue = useMemo(() => getWatchingValue(watch), [watch]);
 

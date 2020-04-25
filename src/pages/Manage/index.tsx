@@ -7,6 +7,7 @@ import api from "../../api";
 import reducer from "./reducer";
 import { getLocalStorage } from "src/utils";
 import { TodoItem } from "@types";
+import Loader from "../../components/Loader";
 
 export default function Manage() {
   const [data, dispatch] = useReducer(reducer, []);
@@ -18,6 +19,7 @@ export default function Manage() {
   const { loading, request } = useFetch({
     onRequest: api.getTodos,
     onSuccess: getTodos,
+    loadStatus: true,
   });
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function Manage() {
   return (
     <Layout>
       <TodoInput dispatch={dispatch} />
-      {loading ? <div>loading...</div> : <TodoLists todos={data} />}
+      {loading ? <Loader /> : <TodoLists todos={data} />}
     </Layout>
   );
 }

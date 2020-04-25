@@ -3,6 +3,8 @@ import { Action } from "@types";
 import S from "./styles";
 import api from "src/api";
 import useFetch from "src/hooks/useFetch";
+import Modal from "../Modal";
+import Loader from "../Loader";
 
 const createNewTodo = (title: string) => {
   const userId = 1;
@@ -22,15 +24,21 @@ function TodoInput({ dispatch }: { dispatch: React.Dispatch<Action> }) {
   const { loading, request } = useFetch({
     onRequest: () => api.addTodo(createNewTodo(value)),
     onSuccess: (payload) => dispatch({ type: "addTodo", payload }),
+    loadStatus: true,
   });
 
   return (
-    <>
+    <S.Wrapper>
+      {loading && (
+        <Modal>
+          <Loader />
+        </Modal>
+      )}
       <S.Input value={value} onChange={onChange}></S.Input>
       <S.Button type="button" onClick={request}>
         add
       </S.Button>
-    </>
+    </S.Wrapper>
   );
 }
 
