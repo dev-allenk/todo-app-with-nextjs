@@ -1,10 +1,10 @@
 import S from "./styles";
 
-interface props {
-  children: JSX.Element[];
+interface Props {
+  children: React.ReactNode;
 }
 
-export default function Wrapper({ children }: props) {
+export default function Wrapper({ children }: Props) {
   return (
     <S.Wrapper>
       <S.Layout>{children}</S.Layout>
