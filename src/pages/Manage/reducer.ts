@@ -9,13 +9,18 @@ import {
 import { Reducer } from "react";
 import { setLocalStorage } from "src/utils";
 
+const random = () => (200 + Math.random() * 10000) | 0;
+
 const reducer: Reducer<TodoItem[], Action> = (state, action) => {
   if (isGetTodos(action)) {
     setLocalStorage("todos", action.payload);
     return [...state, ...action.payload];
   }
   if (isAddTodo(action)) {
-    const newTodos = [{ ...action.payload, completed: false }, ...state];
+    const newTodos = [
+      { ...action.payload, id: random(), completed: false },
+      ...state,
+    ];
     setLocalStorage("todos", newTodos);
     return newTodos;
   }
