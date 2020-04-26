@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../constants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,6 +14,9 @@ const Layout = styled.div`
   min-height: 500px;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
+  @media ${device.desktop} {
+    width: 750px;
+  }
 `;
 
 export default { Layout, Wrapper };

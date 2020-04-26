@@ -11,6 +11,7 @@ const CLOSE_BUTTON_COLOR = "#ff5d5d";
 const ListWrapper = styled.ul`
   padding: 0;
   height: 60vw;
+  max-height: 60vh;
   overflow-x: hidden;
   overflow-y: auto;
 `;

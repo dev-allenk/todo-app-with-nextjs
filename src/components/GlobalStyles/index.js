@@ -1,14 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-
-const size = {
-  tablet: 768,
-  desktop: 1200,
-};
-const device = {
-  tablet: `(min-width: ${size.tablet}px) and
-           (max-width: ${size.desktop - 1}px)`,
-  desktop: `(min-width: ${size.desktop}px)`,
-};
+import { device } from "../../constants";
 
 const GlobalStyles = createGlobalStyle`
   @media ${device.desktop} {
