@@ -1,4 +1,4 @@
-export interface TodoItem {
+export interface ITodoItem {
   userId: number;
   id: number;
   title: string;
@@ -7,12 +7,12 @@ export interface TodoItem {
 
 export interface GetTodos {
   type: "getTodos";
-  payload: TodoItem[];
+  payload: ITodoItem[];
 }
 
 export interface AddTodo {
   type: "addTodo";
-  payload: TodoItem;
+  payload: ITodoItem;
 }
 
 export interface DeleteTodo {

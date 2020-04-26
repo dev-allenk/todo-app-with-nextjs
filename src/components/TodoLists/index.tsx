@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import S from "./styles";
-import { TodoItem, Action } from "@types";
+import { ITodoItem, Action } from "@types";
 import useFetch from "src/hooks/useFetch";
 import api from "src/api";
 import Modal from "../Modal";
 import Loader from "../Loader";
+import TodoItem from "../TodoItem";
 
 interface TodoListsProps {
-  todos: TodoItem[];
+  todos: ITodoItem[];
   dispatch: React.Dispatch<Action>;
 }
 
 function TodoLists({ todos = [], dispatch }: TodoListsProps) {
+  const wrapperRef = useRef(null);
   const { loading, request } = useFetch({
     onRequest: (action) => onRequest(action),
     loadStatus: true,
@@ -45,7 +47,6 @@ function TodoLists({ todos = [], dispatch }: TodoListsProps) {
     await request(action);
     dispatch(action);
   };
-
   return (
     <>
       {loading && (
@@ -53,19 +54,16 @@ function TodoLists({ todos = [], dispatch }: TodoListsProps) {
           <Loader />
         </Modal>
       )}
-      <S.ListWrapper>
+      <S.ListWrapper ref={wrapperRef}>
         {todos.map((item) => (
           <>
-            <S.Li key={item.id}>
-              <S.Span
-                data-id={item.id}
-                onClick={updateStatus}
-                completed={item.completed}
-              >
-                {item.title}
-              </S.Span>
-              <S.CloseButton data-id={item.id} onClick={deleteTodo} />
-            </S.Li>
+            <TodoItem
+              forwardRef={wrapperRef}
+              key={item.id}
+              item={item}
+              onUpdate={updateStatus}
+              onDelete={deleteTodo}
+            />
           </>
         ))}
       </S.ListWrapper>
