@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MAIN_COLOR } from "../../constants";
 
-const Wrapper = styled.div`
+const Form = styled.form`
   display: flex;
   height: 40px;
 `;
@@ -21,4 +21,4 @@ const Button = styled.button`
   }
 `;
 
-export default { Input, Button, Wrapper };
+export default { Input, Button, Form };

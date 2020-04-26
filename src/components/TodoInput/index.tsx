@@ -27,18 +27,25 @@ function TodoInput({ dispatch }: { dispatch: React.Dispatch<Action> }) {
     loadStatus: true,
   });
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!value) return;
+    await request();
+    setValue("");
+  };
+
   return (
-    <S.Wrapper>
+    <>
+      <S.Form onSubmit={onSubmit}>
+        <S.Input value={value} onChange={onChange}></S.Input>
+        <S.Button type="submit">add</S.Button>
+      </S.Form>
       {loading && (
         <Modal>
           <Loader />
         </Modal>
       )}
-      <S.Input value={value} onChange={onChange}></S.Input>
-      <S.Button type="button" onClick={request}>
-        add
-      </S.Button>
-    </S.Wrapper>
+    </>
   );
 }
 
