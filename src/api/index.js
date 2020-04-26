@@ -26,6 +26,9 @@ const todoApi = {
   deleteTodo(id) {
     return request(DELETE, `/todos/${id}`);
   },
+  updateStatus(id, status) {
+    return request(PUT, `/todos/${id}`, BODY({ completed: !status }));
+  },
 };
 
 export default { ...todoApi };

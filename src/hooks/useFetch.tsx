@@ -4,7 +4,7 @@ interface FetchParams {
   onRequest(p: any): Promise<Response>;
   onSuccess?(p: any): void;
   onError?: () => void | object;
-  watch?: any[] | string | number;
+  watch?: any[] | string | number | object;
   autoFetch?: boolean;
   loadStatus?: boolean;
 }

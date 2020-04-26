@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface SpanProps {
+  completed: boolean;
+}
+
 const ITEM_HEIGHT = "32px";
 const CLOSE_BUTTON_WIDTH = "4px";
 const CLOSE_BUTTON_COLOR = "#ff5d5d";
@@ -18,7 +22,8 @@ const Li = styled.li`
   min-height: ${ITEM_HEIGHT};
 `;
 
-const Span = styled.span`
+const Span = styled.span<SpanProps>`
+  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
   &:hover {
     text-decoration: underline;
     cursor: default;

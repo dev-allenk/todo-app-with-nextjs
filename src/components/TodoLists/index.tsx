@@ -12,23 +12,38 @@ interface TodoListsProps {
 }
 
 function TodoLists({ todos = [], dispatch }: TodoListsProps) {
-  const [todoId, setTodoId] = useState("");
-  const { loading } = useFetch({
-    onRequest: () => api.deleteTodo(todoId),
-    onSuccess: () => deleteTodo(todoId),
+  const { loading, request } = useFetch({
+    onRequest: (action) => onRequest(action),
     loadStatus: true,
-    watch: todoId,
   });
 
-  const deleteTodo = (todoId: string) => {
-    dispatch({ type: "deleteTodo", payload: todoId });
-    setTodoId("");
+  const onRequest = ({ type, payload }: Action) => {
+    if (type === "deleteTodo") {
+      return api.deleteTodo(payload);
+    }
+    return api.updateStatus(payload);
   };
 
-  const onClick = ({
+  const deleteTodo = async ({
     currentTarget,
   }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setTodoId(currentTarget.dataset.id!);
+    const action: Action = {
+      type: "deleteTodo",
+      payload: currentTarget.dataset.id!,
+    };
+    await request(action);
+    dispatch(action);
+  };
+
+  const updateStatus = async ({
+    currentTarget,
+  }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const action: Action = {
+      type: "updateStatus",
+      payload: currentTarget.dataset.id!,
+    };
+    await request(action);
+    dispatch(action);
   };
 
   return (
@@ -42,8 +57,14 @@ function TodoLists({ todos = [], dispatch }: TodoListsProps) {
         {todos.map((item) => (
           <>
             <S.Li key={item.id}>
-              <S.Span>{item.title}</S.Span>
-              <S.CloseButton data-id={item.id} onClick={onClick} />
+              <S.Span
+                data-id={item.id}
+                onClick={updateStatus}
+                completed={item.completed}
+              >
+                {item.title}
+              </S.Span>
+              <S.CloseButton data-id={item.id} onClick={deleteTodo} />
             </S.Li>
           </>
         ))}

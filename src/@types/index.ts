@@ -20,4 +20,9 @@ export interface DeleteTodo {
   payload: string;
 }
 
-export type Action = GetTodos | AddTodo | DeleteTodo;
+export interface UpdateStatus {
+  type: "updateStatus";
+  payload: string;
+}
+
+export type Action = GetTodos | AddTodo | DeleteTodo | UpdateStatus;
