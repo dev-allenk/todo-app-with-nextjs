@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const Layout = styled.div`
+const InnerWrapper = styled.div`
   width: 100%;
   min-height: 500px;
   border: 1px solid #e0e0e0;
@@ -19,4 +19,4 @@ const Layout = styled.div`
   }
 `;
 
-export default { Layout, Wrapper };
+export default { InnerWrapper, Wrapper };

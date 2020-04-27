@@ -7,7 +7,7 @@ interface Props {
 export default function Wrapper({ children }: Props) {
   return (
     <S.Wrapper>
-      <S.Layout>{children}</S.Layout>
+      <S.InnerWrapper>{children}</S.InnerWrapper>
     </S.Wrapper>
   );
 }
