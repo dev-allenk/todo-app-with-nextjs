@@ -1,5 +1,5 @@
 import {
-  TodoItem,
+  ITodoItem,
   Action,
   GetTodos,
   AddTodo,
@@ -11,7 +11,7 @@ import { setLocalStorage } from "src/utils";
 
 const random = () => (200 + Math.random() * 10000) | 0;
 
-const reducer: Reducer<TodoItem[], Action> = (state, action) => {
+const reducer: Reducer<ITodoItem[], Action> = (state, action) => {
   if (isGetTodos(action)) {
     setLocalStorage("todos", action.payload);
     return [...state, ...action.payload];

@@ -6,13 +6,13 @@ import useFetch from "../../hooks/useFetch";
 import api from "../../api";
 import reducer from "./reducer";
 import { getLocalStorage } from "src/utils";
-import { TodoItem } from "@types";
+import { ITodoItem } from "@types";
 import Loader from "../../components/Loader";
 
 export default function Manage() {
   const [data, dispatch] = useReducer(reducer, []);
 
-  const getTodos = (data: TodoItem[]) => {
+  const getTodos = (data: ITodoItem[]) => {
     dispatch({ type: "getTodos", payload: data });
   };
 
