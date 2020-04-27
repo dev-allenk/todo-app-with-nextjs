@@ -4,7 +4,7 @@ import TodoInput from "../../components/TodoInput";
 import TodoLists from "../../components/TodoLists";
 import useFetch from "../../hooks/useFetch";
 import api from "../../api";
-import reducer from "./reducer";
+import reducer from "../../reducers";
 import { getLocalStorage } from "src/utils";
 import { ITodoItem } from "@types";
 import Loader from "../../components/Loader";
